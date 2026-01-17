@@ -102,7 +102,6 @@ function ChatRoom() {
         try {
           const roomResponse = await APIClient.getRoomDetails(roomId);
           setRoom(roomResponse.data);
-          setMembers(roomResponse.data.members || []);
 
           const messagesResponse = await APIClient.getMessageHistory(roomId);
           setMessages(messagesResponse.data.messages || []);
@@ -144,7 +143,6 @@ function ChatRoom() {
       
       const roomResponse = await APIClient.getRoomDetails(roomId);
       setRoom(roomResponse.data);
-      setMembers(roomResponse.data.members || []);
 
       const messagesResponse = await APIClient.getMessageHistory(roomId);
       setMessages(messagesResponse.data.messages || []);
