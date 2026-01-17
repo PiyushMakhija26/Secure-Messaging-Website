@@ -125,4 +125,5 @@ class APIClient {
   }
 }
 
-export default new APIClient();
+const apiClient = new APIClient();
+export default apiClient;

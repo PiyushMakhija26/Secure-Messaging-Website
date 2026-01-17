@@ -8,7 +8,6 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
   const [room, setRoom] = useState(null);
-  const [members, setMembers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -130,6 +129,7 @@ function ChatRoom() {
     return () => {
       if (wsRef.current) wsRef.current.close();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId]);
 
   useEffect(() => {
