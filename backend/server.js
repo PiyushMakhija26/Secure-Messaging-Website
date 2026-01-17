@@ -151,6 +151,27 @@ function broadcastToRoom(roomId, message, excludeWs = null) {
   }
 }
 
+// Auto-delete old messages (older than 90 days)
+async function deleteOldMessages() {
+  try {
+    const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
+    const result = await Message.deleteMany({
+      createdAt: { $lt: ninetyDaysAgo }
+    });
+    if (result.deletedCount > 0) {
+      console.log(`✓ Deleted ${result.deletedCount} old messages`);
+    }
+  } catch (error) {
+    console.error('Error deleting old messages:', error);
+  }
+}
+
+// Run cleanup on server start
+deleteOldMessages();
+
+// Schedule auto-delete to run daily (every 24 hours)
+setInterval(deleteOldMessages, 24 * 60 * 60 * 1000);
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'Server is running' });
